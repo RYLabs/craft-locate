@@ -12,11 +12,14 @@ namespace swixpop\locate;
 
 use swixpop\locate\models\Settings;
 use swixpop\locate\fields\LocateField as LocateFieldField;
+use swixpop\locate\gql\LocateModelType;
 
 use Craft;
 use craft\base\Plugin;
 use craft\services\Fields;
+use craft\services\Gql;
 use craft\events\RegisterComponentTypesEvent;
+use craft\events\RegisterGqlTypesEvent;
 
 use yii\base\Event;
 
@@ -65,6 +68,14 @@ class Locate extends Plugin
             Fields::EVENT_REGISTER_FIELD_TYPES,
             function (RegisterComponentTypesEvent $event) {
                 $event->types[] = LocateFieldField::class;
+            }
+        );
+
+        Event::on(
+            Gql::class,
+            Gql::EVENT_REGISTER_GQL_TYPES,
+            function (RegisterGqlTypesEvent $event) {
+                $event->types[] = LocateModelType::class;
             }
         );
 
