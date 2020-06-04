@@ -16,6 +16,7 @@ use craft\elements\db\ElementQueryInterface;
 use swixpop\locate\Locate;
 use swixpop\locate\assetbundles\locatefieldfield\LocateFieldFieldAsset;
 use swixpop\locate\models\LocateModel;
+use swixpop\locate\gql\LocateModelType;
 
 use craft\helpers\StringHelper;
 
@@ -231,5 +232,12 @@ class LocateField extends Field
                 'pluginSettingsUrl' => UrlHelper::cpUrl('settings/plugins/' . Locate::$plugin->getHandle())
             ]
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getContentGqlType() {
+        return LocateModelType::getType();
     }
 }
